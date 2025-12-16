@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
 const {generarJWT} = require('../helpers/generar-jwt');
 
+
 const login = async (req=request, res=response) => {
     const {correo, password} = req.body;
 
@@ -49,9 +50,27 @@ const login = async (req=request, res=response) => {
             msg:'Hable con el administrador del sistema'
         })
     }  
-}
+};
+
+const renewToken = async (req = request, res = response) => {
+    // El middleware validarJWT ya adjuntó el usuario al request.
+    const { usuario: usuarioRenovado } = req;
+    
+    // El 'uid' (ID de usuario) lo extrae validarJWT de tu JWT original
+    const uid = usuarioRenovado.id; 
+
+    // 1. Generar un nuevo JWT (con un nuevo tiempo de expiración de 4h)
+    const token = await generarJWT(uid);
+
+    res.json({
+        msg: 'Token Renovado OK',
+        usuario: usuarioRenovado, // Devolver los datos del usuario (opcionalmente puedes traerlos de la DB aquí)
+        token                   // Devolver el nuevo token
+    });
+};
 
 
 module.exports = {
     login,
+    renewToken
 }

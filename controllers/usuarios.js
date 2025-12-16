@@ -38,7 +38,11 @@ const usuarioPost = async (req = request, res = response) => {
     const datos = req.body;
 
     const { nombre, apellido, correo, password, rol } = datos;
-    const usuario = new Usuario({ nombre, apellido, correo, password, rol })
+
+    // 🚨 Asignar el rol por defecto aquí:
+    const rolPorDefecto = 'usuario'; // O el nombre que uses
+
+    const usuario = new Usuario({ nombre, apellido, correo, password, rol:rolPorDefecto })
     //Encriptar la contraseña
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
