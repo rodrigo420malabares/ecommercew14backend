@@ -8,9 +8,7 @@ const { esAdminRole } = require('../middlewares/validar-roles');
 
 const router = Router();
 
-router.get('/', [
-    validarJWT,
-], categoriasGet );
+router.get('/',  categoriasGet );
 
 router.get('/:id', [
     validarJWT,
