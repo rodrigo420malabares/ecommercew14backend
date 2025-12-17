@@ -51,7 +51,7 @@ const categoriaPost = async(req=request, res=response) => {
 
     const data = {
         nombre,
-        //usuario: req.usuario._id
+        usuario: req.usuario._id
     }
 
     const categoria = new Categoria(data);
