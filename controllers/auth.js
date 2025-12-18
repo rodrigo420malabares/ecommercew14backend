@@ -88,7 +88,7 @@ const forgotPassword = async (req, res) => {
         // 2. Crear el link de recuperación
         // OJO: Aquí pon la URL de tu Frontend. Si estás en local: localhost:5173
         // Si ya subiste el front a Vercel/Netlify, pon esa URL.
-        const verificationLink = `https://ecommercew14backend.vercel.app/?token=${token}`; 
+        const verificationLink = `https://workifytienda.netlify.app/reset-password?token=${token}`; 
 
         // 3. Configurar el correo
         const mailOptions = {
