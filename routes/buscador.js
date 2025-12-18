@@ -1,7 +1,9 @@
-// Si lo ponés en routes/productos.js:
-const { buscarProductos } = require('../controllers/productos');
+const { Router } = require('express');
+const { buscarProductos } = require('../controllers/buscador'); // Asegurate que tu controlador se llame así
 
-// ... tus otras rutas ...
+const router = Router();
 
-// Ruta nueva:
-router.get('/buscar/:termino', buscarProductos);
+// Esta ruta responderá a: /api/buscar/:termino
+router.get('/:termino', buscarProductos);
+
+module.exports = router;
