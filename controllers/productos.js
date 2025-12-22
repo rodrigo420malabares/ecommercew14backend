@@ -3,24 +3,26 @@ const Producto = require('../models/producto');
 const cloudinary = require('cloudinary').v2;
 
 const productosGet = async (req = request, res = response) => {
-    const { desde = 0, limite = 5 } = req.query;
-    const query = { estado: true };
+   // 1. Recibimos limite y desde del frontend
+    const { limite = 5, desde = 0 } = req.query;
+    const query = { estado: true }; // Solo productos activos
 
+    // 2. Ejecutamos dos consultas a la vez: Contar Total y Buscar Productos
     const [total, productos] = await Promise.all([
         Producto.countDocuments(query),
         Producto.find(query)
+            .populate('usuario', 'nombre')
+            .populate('categoria', 'nombre')
             .skip(Number(desde))
             .limit(Number(limite))
-            .populate('usuario', 'correo')
-            .populate('categoria', 'nombre')
     ]);
 
+    // 3. Devolvemos AMBOS datos
     res.json({
-        msg: 'Productos obtenidos',
         total,
         productos
-    })
-};
+    });
+}
 
 const productoGet = async (req = request, res = response) => {
     const { id } = req.params;
