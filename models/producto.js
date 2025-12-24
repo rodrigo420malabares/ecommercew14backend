@@ -11,6 +11,8 @@ const ProductosSchema = Schema({
     fechaRegistro: {type:Date, default: Date.now},
     usuario: {type: Schema.Types.ObjectId, ref: 'Usuario', required: true},
     categoria: {type: Schema.Types.ObjectId, ref: 'Categoria', required: true},
+    destacado: {type: Boolean, default: false
+    },
 })
 
 module.exports = model('Producto', ProductosSchema)
